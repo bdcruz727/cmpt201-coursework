@@ -1,0 +1,9 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main(void){
+  char* lineptr = NULL;
+  lineptr = getline();
+  printf("%s\n", lineptr);
+  return 0;
+}
