@@ -1,0 +1,41 @@
+#define _GNU_SOURCE
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+int main(void) {
+  char *line = NULL;
+  size_t length = 0;
+
+  while (1) {
+    fflush(stdout);
+    printf("Enter programs to run.\n");
+
+    ssize_t lines = getline(&line, &length, stdin);
+    line[lines - 1] = '\0';
+
+    if (lines == -1) {
+      break;
+    }
+
+    pid_t pid = fork();
+    if (pid == -1) {
+      perror("fork");
+      continue;
+    }
+
+    if (pid == 0) {
+      execl(line, line, (char *)NULL);
+      perror("Exec");
+      exit(EXIT_FAILURE);
+    } else {
+      int status;
+      waitpid(pid, &status, 0);
+    }
+  }
+  free(line);
+  return 0;
+}
