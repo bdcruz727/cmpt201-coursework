@@ -1,0 +1,76 @@
+#define _GNU_SOURCE
+
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+
+int main(void){
+  char *line = NULL;
+  char *lineBuffer[5];
+  for (int i = 0; i< 5; i++){
+    lineBuffer[i] = NULL;
+  }
+  int length = 0;
+  ssize_t read;
+  int storedWords = 0;
+
+  while(1){
+    printf("Enter input: ");
+    read = getline(&line, &length, stdin);
+
+    if (line[read-1] == '\n')
+    {
+      line[read-1] = '\0';
+    }
+
+  
+    if (storedWords > 5){
+      free(lineBuffer[storedWords % 5]);
+    }
+
+    size_t lineLength = strlen(line);
+    lineBuffer[storedWords % 5] = malloc(lineLength + 1);
+    strcpy(lineBuffer[storedWords % 5], line);
+
+    storedWords++;
+  
+    if (strcmp(line, "print") == 0){
+      break;
+    }
+
+  }
+
+  int startingLinePrint = 0;
+  if (storedWords > 5){
+    startingLinePrint = storedWords-5;
+  }
+
+
+
+
+  for (int i = startingLinePrint; i < storedWords; i++){
+    printf("%s\n", lineBuffer[i % 5]);
+  }
+
+  for (int i = 0; i < 5; i++){
+    free(lineBuffer[i]);
+  }
+
+  return 0;
+}
+
+
+  
+  
+
+
+  
+
+
+
+
+
+  
+
+
+}
