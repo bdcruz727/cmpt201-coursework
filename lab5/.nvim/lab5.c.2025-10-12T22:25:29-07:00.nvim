@@ -32,13 +32,12 @@ int find_first_fit(struct header *free_list_ptr, uint64_t size) {
 
 int find_best_fit(struct header *free_list_ptr, uint64_t size) {
   int best_fit_id = -1;
-  uint64_t best_fit_size = UINT64_MAX;
+  int64_t best_fit_size = INT64_MAX;
   // TODO: Implement best fit
   struct header *current = free_list_ptr;
   while (current != NULL) {
     if (current->size >= size)
-      if ((current->size - size) <= best_fit_size) {
-        best_fit_size = (current->size - size);
+      if ((current->size - size) < best_fit_size) {
         best_fit_id = current->id;
       }
     current = current->next;
@@ -48,13 +47,12 @@ int find_best_fit(struct header *free_list_ptr, uint64_t size) {
 
 int find_worst_fit(struct header *free_list_ptr, uint64_t size) {
   int worst_fit_id = -1;
-  uint64_t worst_fit_size = 0;
+  int64_t worst_fit_size = INT64_MIN;
   // TODO: Implement worst fit
   struct header *current = free_list_ptr;
   while (current != NULL) {
     if (current->size >= size) {
-      if ((current->size - size) >= worst_fit_size) {
-        worst_fit_size = (current->size - size);
+      if ((current->size - size) > worst_fit_size) {
         worst_fit_id = current->id;
       }
     }
@@ -90,37 +88,3 @@ int main(void) {
 
   return 0;
 }
-
-
-/*  coalesce(free_list_head){
- *  current = free_list_head
- *  while (current != NULL && current->next != NULL){
- *    nextBlock = current->next
- *    if address(current) + current->size == address(nextBlock) {
- *      current->size += nextBlock->size
- *      current->next = nextBlock ->next
- *    } else {
- *      current = current->next
- *    }
- *  }
- *
- *  return free_list_head
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *  }
- * 
- *
- *
- *
- *
- *
- *
- */

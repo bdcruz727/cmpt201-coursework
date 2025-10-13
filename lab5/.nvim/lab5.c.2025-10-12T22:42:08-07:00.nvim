@@ -53,7 +53,11 @@ int find_worst_fit(struct header *free_list_ptr, uint64_t size) {
   struct header *current = free_list_ptr;
   while (current != NULL) {
     if (current->size >= size) {
+      printf("Current Size: %lu\n", current->size);
+      printf("current->size - size: %lu\n", current->size - size);
+      printf("Worst Fit Size: %lu\n", worst_fit_size);
       if ((current->size - size) >= worst_fit_size) {
+        printf("Current Size (%lu) >= %lu\n", current->size, worst_fit_size);
         worst_fit_size = (current->size - size);
         worst_fit_id = current->id;
       }
@@ -90,37 +94,3 @@ int main(void) {
 
   return 0;
 }
-
-
-/*  coalesce(free_list_head){
- *  current = free_list_head
- *  while (current != NULL && current->next != NULL){
- *    nextBlock = current->next
- *    if address(current) + current->size == address(nextBlock) {
- *      current->size += nextBlock->size
- *      current->next = nextBlock ->next
- *    } else {
- *      current = current->next
- *    }
- *  }
- *
- *  return free_list_head
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *  }
- * 
- *
- *
- *
- *
- *
- *
- */

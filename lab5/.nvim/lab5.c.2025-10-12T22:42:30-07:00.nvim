@@ -90,37 +90,3 @@ int main(void) {
 
   return 0;
 }
-
-
-/*  coalesce(free_list_head){
- *  current = free_list_head
- *  while (current != NULL && current->next != NULL){
- *    nextBlock = current->next
- *    if address(current) + current->size == address(nextBlock) {
- *      current->size += nextBlock->size
- *      current->next = nextBlock ->next
- *    } else {
- *      current = current->next
- *    }
- *  }
- *
- *  return free_list_head
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *
- *  }
- * 
- *
- *
- *
- *
- *
- *
- */
