@@ -117,7 +117,7 @@ int verify(const char *message_path, const char *sign_path, EVP_PKEY *pubkey) {
   fclose(signfp);
 
   EVP_MD_CTX *mdctx = NULL;
-  mdctx = EVP_MD_CTX_new();
+  mdctx = EVP_MD_CTX_create();
   if (mdctx == NULL) {
     handle_error("mdctx create failed");
   }
